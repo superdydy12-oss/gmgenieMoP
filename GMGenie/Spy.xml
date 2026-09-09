@@ -1,0 +1,741 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+ http://wowprogramming.com/FrameXML/UI.xsd">
+
+    <EditBox name="GMGenie_Spy_Uneditable" inherits="GMGenie_Input_Text" virtual="true" autoFocus="false">
+        <Scripts>
+            <OnChar>
+                GMGenie.Spy.resetBoxes();
+            </OnChar>
+        </Scripts>
+    </EditBox>
+
+    <Button name="GMGenie_Spy_InfoWindow" inherits="GMGenie_Window2">
+        <Size>
+            <!--
+			<AbsDimension x="230" y="283"/>
+			-->
+			<!--
+			<AbsDimension x="330" y="295"/>
+			-->
+			<AbsDimension x="310" y="330"/>
+
+        </Size>
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="GMGenie_Tickets_View" relativePoint="TOPRIGHT"/>
+        </Anchors>
+        <Scripts>
+            <OnDoubleClick>
+                self:ClearAllPoints();
+                self:SetPoint("LEFT", GMGenie_Tickets_View, "RIGHT");
+            </OnDoubleClick>
+            <OnClick>
+                if (button == "RightButton") then
+                GMGenie.Spy.copyPin();
+                end
+            </OnClick>
+            <OnLoad>
+                GMGenie.loadWindow(self, 'Loading...', true, function()
+                GMGenie.Spy.spy(GMGenie.Spy.currentRequest["name"]); end);
+            </OnLoad>
+        </Scripts>
+        <Frames>
+            <Frame name="$parent_Info">
+                <Anchors>
+                    <Anchor point="TOP">
+                        <Offset>
+                            <AbsDimension x="10" y="-19"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <!--
+					<AbsDimension x="220" y="23"/>
+					-->
+                    <!--
+					<AbsDimension x="300" y="40"/>
+					-->
+					<AbsDimension x="300" y="150"/>
+                </Size>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_CharInfo" inherits="GenieFontNormalSmall" text="" justifyH="CENTER">
+                            <Anchors>
+                                <Anchor point="TOP"/>
+                            </Anchors>
+                        </FontString>
+						<FontString name="$parent_Guild2" inherits="GenieFontNormalSmall" text="" justifyH="CENTER">
+                            <Anchors>
+                                <Anchor point="TOP" relativeTo="$parent_CharInfo" relativePoint="BOTTOM"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parent_Guild" inherits="GenieFontNormalSmall" text="" justifyH="CENTER">
+                            <Anchors>
+                                <Anchor point="TOP" relativeTo="$parent_Guild2" relativePoint="BOTTOM"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parent_Proff1" inherits="GenieFontNormalSmall" text="" justifyH="CENTER">
+                            <Anchors>
+                                <Anchor point="TOPRIGHT" relativeTo="$parent_Guild" relativePoint="BOTTOM"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parent_Proff2" inherits="GenieFontNormalSmall" text="" justifyH="CENTER">
+                            <Anchors>
+                                <Anchor point="LEFT" relativeTo="$parent_Proff1" relativePoint="RIGHT"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parent_Proff3" inherits="GenieFontNormalSmall" text="" justifyH="CENTER">
+                            <Anchors>
+                                <Anchor point="TOP" relativeTo="$parent_Proff1" relativePoint="BOTTOM"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parent_Proff4" inherits="GenieFontNormalSmall" text="" justifyH="CENTER">
+                            <Anchors>
+                                <Anchor point="LEFT" relativeTo="$parent_Proff3" relativePoint="RIGHT"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parent_Proff5" inherits="GenieFontNormalSmall" text="" justifyH="CENTER">
+                            <Anchors>
+                                <Anchor point="TOP" relativeTo="$parent_Guild" relativePoint="BOTTOM"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parent_Proff6" inherits="GenieFontNormalSmall" text="" justifyH="CENTER">
+                            <Anchors>
+                                <Anchor point="TOP" relativeTo="$parent_Proff1" relativePoint="BOTTOMRIGHT"/>
+                            </Anchors>
+                        </FontString>						
+                    </Layer>
+                </Layers>
+            </Frame>
+			
+            <Frame name="$parent_Character">
+                <Size>
+                    <AbsDimension x="220" y="19"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPCENTER" relativeTo="$parent_Info" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="GenieFontNormalSmall" text="Char:"
+                                    justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="LEFT">
+                                    <Offset>
+                                        <AbsDimension x="0" y="90"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <EditBox name="$parent_Name" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+							<AbsDimension x="145" y="18"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parent_Title" relativePoint="RIGHT"/>
+                        </Anchors>
+                    </EditBox>
+                    <EditBox name="$parent_Id" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <AbsDimension x="90" y="18"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parent_Name" relativePoint="RIGHT"/>
+                        </Anchors>
+                    </EditBox>
+                </Frames>
+            </Frame>
+            <Frame name="$parent_Account">
+                <Size>
+                    <AbsDimension x="220" y="19"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="GMGenie_Spy_InfoWindow_Character_Title" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="GenieFontNormalSmall" text="Acc:"
+                                    justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="LEFT">
+                                    <Offset>
+                                        <AbsDimension x="0" y="-3"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <EditBox name="$parent_Name" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <AbsDimension x="145" y="18"/>
+                        </Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="GMGenie_Spy_InfoWindow_Character_Name" relativePoint="BOTTOMLEFT"/>
+						</Anchors>
+                    </EditBox>
+                    <EditBox name="$parent_Id" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <AbsDimension x="90" y="18"/>
+                        </Size>
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parent_Name" relativePoint="RIGHT"/>
+						</Anchors>
+                    </EditBox>
+                </Frames>
+            </Frame>
+			<Frame name="$parent_Fingerprint">
+                <Size>
+					<AbsDimension x="220" y="19"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="GMGenie_Spy_InfoWindow_Account" relativePoint="BOTTOM"/>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="GenieFontNormalSmall" text="" justifyH="LEFT">
+						<Anchors>
+							<Anchor point="RIGHT" relativeTo="GMGenie_Spy_InfoWindow_Fingerprint_Fingerprint" relativePoint="LEFT"/>
+						</Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+					<EditBox name="$parent_Fingerprint" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+ --                         <AbsDimension x="235" y="18"/>
+                        </Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="GMGenie_Spy_InfoWindow_Account_Name" relativePoint="BOTTOMLEFT"/>
+						</Anchors>
+                    </EditBox>
+                </Frames>
+            </Frame>
+			<Frame name="$parent_Decode">
+                <Size>
+                    <AbsDimension x="270" y="35"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="GMGenie_Spy_InfoWindow_Fingerprint" relativePoint="BOTTOMLEFT"/>
+               </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="GenieFontNormalSmall" text="" justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="LEFT">
+                                    <Offset>
+                                        <AbsDimension x="-6" y="2"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <!-- <EditBox name="$parent_Email" inherits="GMGenie_Spy_Uneditable"> -->
+					<EditBox name="$parent_Decode" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <AbsDimension x="253" y="18"/>
+ --                         <AbsDimension x="160" y="18"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="LEFT">
+                                <Offset>
+                                    <AbsDimension x="18" y="1"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                    </EditBox>
+                </Frames>
+            </Frame>
+            <Frame name="$parent_IpLat">
+                <Size>
+                    <AbsDimension x="220" y="19"/>
+                </Size>
+                <Anchors>
+					<Anchor point="TOPLEFT" relativeTo="GMGenie_Spy_InfoWindow_Decode" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+                <Frames>
+                    <EditBox name="$parent_Ip" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <AbsDimension x="145" y="18"/>
+                        </Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="GMGenie_Spy_InfoWindow_Decode_Decode" relativePoint="BOTTOMLEFT"/>
+						</Anchors>
+                    </EditBox>
+                    <EditBox name="$parent_Latency" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <AbsDimension x="90" y="18"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="LEFT">
+                                <Offset>
+                                    <AbsDimension x="175" y="1"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                    </EditBox>
+                </Frames>
+				<Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="GenieFontNormalSmall" text="Ip/Lat:"
+                                    justifyH="LEFT">
+							<Anchors>
+								<Anchor point="RIGHT" relativeTo="GMGenie_Spy_InfoWindow_IpLat_Ip" relativePoint="LEFT"/>
+							</Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>yewsyes ]
+            </Frame>
+            <Frame name="$parent_LastLogin">
+                <Size>
+                    <AbsDimension x="220" y="19"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="GMGenie_Spy_InfoWindow_IpLat" relativePoint="BOTTOM"/>
+                </Anchors>
+                <Frames>
+                    <EditBox name="$parent_LastLogin" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <AbsDimension x="145" y="18"/>
+                        </Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="GMGenie_Spy_InfoWindow_IpLat_Ip" relativePoint="BOTTOMLEFT"/>
+						</Anchors>
+                    </EditBox>
+                    <EditBox name="$parent_Alive" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <AbsDimension x="45" y="18"/>
+                        </Size>
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="GMGenie_Spy_InfoWindow_IpLat_Latency" relativePoint="BOTTOMRIGHT"/>
+						</Anchors>
+                    </EditBox>
+                </Frames>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="GenieFontNormalSmall" text="Login:"
+                                    justifyH="LEFT">
+							<Anchors>
+								<Anchor point="RIGHT" relativeTo="GMGenie_Spy_InfoWindow_LastLogin_LastLogin" relativePoint="LEFT"/>
+							</Anchors>
+                        </FontString>
+                        <FontString name="$parent_Title" inherits="GenieFontNormalSmall" text="Alive?" justifyH="LEFT">
+							<Anchors>
+								<Anchor point="RIGHT" relativeTo="GMGenie_Spy_InfoWindow_LastLogin_Alive" relativePoint="LEFT"/>
+							</Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
+            <Frame name="$parent_PlayedGM">
+                <Size>
+                    <AbsDimension x="220" y="19"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="GMGenie_Spy_InfoWindow_LastLogin" relativePoint="BOTTOM"/>
+                </Anchors>
+                <Frames>
+                    <EditBox name="$parent_PlayedTime" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <AbsDimension x="62" y="18"/>
+                        </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="GMGenie_Spy_InfoWindow_LastLogin_LastLogin" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+                    </EditBox>
+                    <EditBox name="$parent_GM" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <AbsDimension x="45" y="18"/>
+                        </Size>
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="GMGenie_Spy_InfoWindow_LastLogin_LastLogin" relativePoint="BOTTOMRIGHT"/>
+						</Anchors>
+                    </EditBox>
+                    <EditBox name="$parent_Online" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <AbsDimension x="45" y="18"/>
+                        </Size>
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="GMGenie_Spy_InfoWindow_LastLogin_Alive" relativePoint="BOTTOMRIGHT"/>
+						</Anchors>
+                    </EditBox>
+                </Frames>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="GenieFontNormalSmall" text="Played:"
+                                    justifyH="LEFT">
+							<Anchors>
+								<Anchor point="RIGHT" relativeTo="GMGenie_Spy_InfoWindow_PlayedGM_PlayedTime" relativePoint="LEFT"/>
+							</Anchors>
+                        </FontString>
+                        <FontString name="$parent_Title" inherits="GenieFontNormalSmall" text="GM lvl:"
+                                    justifyH="LEFT">
+							<Anchors>
+								<Anchor point="RIGHT" relativeTo="GMGenie_Spy_InfoWindow_PlayedGM_GM" relativePoint="LEFT"/>
+							</Anchors>
+                        </FontString>	
+                        <FontString name="$parent_Title2" inherits="GenieFontNormalSmall" text="Online?"
+                                    justifyH="LEFT">
+							<Anchors>
+								<Anchor point="RIGHT" relativeTo="GMGenie_Spy_InfoWindow_PlayedGM_Online" relativePoint="LEFT"/>
+							</Anchors>
+                        </FontString>							
+                    </Layer>
+                </Layers>
+            </Frame>
+            <Frame name="$parent_MoneyPhase">
+                <Size>
+                    <AbsDimension x="220" y="19"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="GMGenie_Spy_InfoWindow_PlayedGM" relativePoint="BOTTOM"/>
+                </Anchors>
+                <Frames>
+                    <EditBox name="$parent_Money" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <AbsDimension x="105" y="18"/>
+                        </Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="GMGenie_Spy_InfoWindow_PlayedGM_PlayedTime" relativePoint="BOTTOMLEFT"/>
+						</Anchors>
+                    </EditBox>
+                    <EditBox name="$parent_Phase" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <AbsDimension x="90" y="18"/>
+                        </Size>
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="GMGenie_Spy_InfoWindow_PlayedGM_Online" relativePoint="BOTTOMRIGHT"/>
+						</Anchors>
+                    </EditBox>
+                </Frames>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="GenieFontNormalSmall" text="Gold:"
+                                    justifyH="LEFT">
+							<Anchors>
+								<Anchor point="RIGHT" relativeTo="GMGenie_Spy_InfoWindow_MoneyPhase_Money" relativePoint="LEFT"/>
+							</Anchors>
+                        </FontString>
+                        <FontString name="$parent_Title" inherits="GenieFontNormalSmall" text="Phase:"
+                                    justifyH="LEFT">
+							<Anchors>
+								<Anchor point="RIGHT" relativeTo="GMGenie_Spy_InfoWindow_MoneyPhase_Phase" relativePoint="LEFT"/>
+							</Anchors>
+                        </FontString>						
+                    </Layer>
+                </Layers>				
+            </Frame>
+            <Frame name="$parent_Location">
+                <Size>
+                    <!--
+					<AbsDimension x="220" y="19"/>
+					-->
+					<AbsDimension x="270" y="30"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="GMGenie_Spy_InfoWindow_MoneyPhase_Money" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="GenieFontNormalSmall" text="Loc:"
+                                    justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativeTo="GMGenie_Spy_InfoWindow_MoneyPhase_Money" relativePoint="BOTTOMLEFT">
+                                    <Offset>
+										<AbsDimension x="-23" y="-3"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parent_Title" inherits="GenieFontNormalSmall" text="Target:"
+                                    justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativeTo="GMGenie_Spy_InfoWindow_MoneyPhase_Money" relativePoint="BOTTOMLEFT">
+                                    <Offset>
+										<AbsDimension x="-39" y="-33"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <EditBox name="$parent_Location" inherits="GMGenie_Spy_Uneditable">
+                        <Size>
+                            <!--
+							<AbsDimension x="150" y="18"/>
+							-->
+							<AbsDimension x="235" y="18"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="LEFT">
+                                <Offset>
+                                    <!--
+									<AbsDimension x="60" y="1"/>
+									-->
+									<AbsDimension x="20" y="1"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                    </EditBox>
+                </Frames>
+            </Frame>
+
+            <Button name="$parent_Auras" inherits="GMGenie_Button" text=" Auras">
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT">
+                        <Offset>
+                            <AbsDimension x="45" y="41"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                    </OnLoad>
+                    <OnClick>
+                        GMGenie.Spy.listauras();
+                    </OnClick>
+                    <OnEnter>
+                        GameTooltip:SetOwner(self, "ANCHOR_NONE");
+                        GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+                        CONTAINER_OFFSET_Y);
+                        GameTooltip:AddLine("List Auras");
+                        GameTooltip:AddLine("Operates on your target,");
+						GameTooltip:AddLine("or yourself if no target.");
+                        GameTooltip:Show();
+                    </OnEnter>
+                    <OnLeave>
+                        GameTooltip:Hide();
+                    </OnLeave>
+                </Scripts>
+            </Button>
+
+            <Button name="$parent_IDs" inherits="GMGenie_Button" text=" IDs">
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT">
+                        <Offset>
+                            <AbsDimension x="100" y="41"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                    </OnLoad>
+                    <OnClick>
+                        GMGenie.Spy.listids();
+                    </OnClick>
+                    <OnEnter>
+                        GameTooltip:SetOwner(self, "ANCHOR_NONE");
+                        GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+                        CONTAINER_OFFSET_Y);
+                        GameTooltip:AddLine("List Instance IDs");
+                        GameTooltip:AddLine("Operates on your target,");
+						GameTooltip:AddLine("or yourself if no target.");
+                        GameTooltip:Show();
+                    </OnEnter>
+                    <OnLeave>
+                        GameTooltip:Hide();
+                    </OnLeave>
+                </Scripts>
+            </Button>
+			
+            <Button name="$parent_Whisper" inherits="GMGenie_Button" text=" Whisper">
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT">
+                        <Offset>
+                            <AbsDimension x="35" y="5"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                    </OnLoad>
+                    <OnClick>
+                        GMGenie.Spy.whisper();
+                    </OnClick>
+                    <OnEnter>
+                        GameTooltip:SetOwner(self, "ANCHOR_NONE");
+                        GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+                        CONTAINER_OFFSET_Y);
+                        GameTooltip:AddLine("Whisper");
+                        GameTooltip:AddLine("Left click to send");
+						GameTooltip:AddLine("a whisper to ".. GMGenie.Spy.currentRequest["name"] ..".");
+                        GameTooltip:Show();
+                    </OnEnter>
+                    <OnLeave>
+                        GameTooltip:Hide();
+                    </OnLeave>
+                </Scripts>
+            </Button>
+
+            <Button name="$parent_Macros" inherits="GMGenie_Dropdown" text="Macros">
+                <Size>
+                    <AbsDimension x="90" y="18"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT">
+                        <Offset>
+                            <AbsDimension x="44" y="24"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        ToggleDropDownMenu(1, nil, GMGenie_Spy_InfoWindow_DropdownbuttonsOne,
+                        GMGenie_Spy_InfoWindow_Macros, 0, 0);
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <Frame name="$parent_DropdownbuttonsOne" inherits="UIDropDownMenuTemplate" id="50"/>
+            <Button name="$parent_Advanced" inherits="GMGenie_Dropdown" text="Lookup">
+                <Size>
+                    <AbsDimension x="90" y="18"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT">
+                        <Offset>
+                            <AbsDimension x="-31" y="24"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        ToggleDropDownMenu(1, nil, GMGenie_Spy_InfoWindow_DropdownbuttonsTwo,
+                        GMGenie_Spy_InfoWindow_Advanced, 0, 0);
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <Frame name="$parent_DropdownbuttonsTwo" inherits="UIDropDownMenuTemplate" id="50"/>
+
+            <Button name="$parent_Revive" inherits="GMGenie_Button" text='Revive'>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="GMGenie_Spy_InfoWindow_Whisper" relativePoint="RIGHT">
+                        <Offset>
+                            <AbsDimension x="10" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        GMGenie.Spy.revive();
+                    </OnClick>
+                    <OnEnter>
+                        GameTooltip:SetOwner(self, "ANCHOR_NONE");
+                        GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+                        CONTAINER_OFFSET_Y);
+                        GameTooltip:AddLine("Revive");
+                        GameTooltip:AddLine("Revive player ".. GMGenie.Spy.currentRequest["name"] ..".");
+                        GameTooltip:Show();
+                    </OnEnter>
+                    <OnLeave>
+                        GameTooltip:Hide();
+                    </OnLeave>
+                </Scripts>
+            </Button>
+            <Button name="$parent_Freeze" inherits="GMGenie_Button" text=' (Un)freeze'>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="GMGenie_Spy_InfoWindow_Revive" relativePoint="RIGHT">
+                        <Offset>
+                            <AbsDimension x="10" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        if (button == "RightButton") then
+                        GMGenie.Spy.unfreeze();
+                        else
+                        GMGenie.Spy.freeze();
+                        end
+                    </OnClick>
+                    <OnLoad>
+                        self:RegisterForClicks("LeftButtonUp","RightButtonUp");
+                    </OnLoad>
+                    <OnEnter>
+                        GameTooltip:SetOwner(self, "ANCHOR_NONE");
+                        GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+                        CONTAINER_OFFSET_Y);
+                        GameTooltip:AddLine("Freeze / Unfreeze");
+                        GameTooltip:AddLine("Left click to freeze.");
+                        GameTooltip:AddLine("Right click to unfreeze.");
+                        GameTooltip:Show();
+                    </OnEnter>
+                    <OnLeave>
+                        GameTooltip:Hide();
+                    </OnLeave>
+                </Scripts>
+            </Button>
+			<Button name="$parent_Appear" inherits="GMGenie_Button" text='Group'>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT">
+                        <Offset>
+                            <AbsDimension x="134" y="24"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        self:RegisterForClicks("LeftButtonUp","RightButtonUp");
+                    </OnLoad>
+                    <OnClick>
+                        if (button == "RightButton") then
+                        GMGenie.Spy.grouplist();
+                        else
+                        GMGenie.Spy.grouplist();
+                        end
+                    </OnClick>
+                    <OnEnter>
+                        GameTooltip:SetOwner(self, "ANCHOR_NONE");
+                        GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+                        CONTAINER_OFFSET_Y);
+                        GameTooltip:AddLine("Group List");
+                        GameTooltip:Show();
+                    </OnEnter>
+                    <OnLeave>
+                        GameTooltip:Hide();
+                    </OnLeave>
+                </Scripts>
+            </Button>
+            <Button name="$parent_Appear" inherits="GMGenie_Button" text='App/Sum'>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="GMGenie_Spy_InfoWindow_Freeze" relativePoint="RIGHT">
+                        <Offset>
+                            <AbsDimension x="10" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        self:RegisterForClicks("LeftButtonUp","RightButtonUp");
+                    </OnLoad>
+                    <OnClick>
+                        if (button == "RightButton") then
+                        GMGenie.Spy.summon();
+                        else
+                        GMGenie.Spy.appear();
+                        end
+                    </OnClick>
+                    <OnEnter>
+                        GameTooltip:SetOwner(self, "ANCHOR_NONE");
+                        GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+                        CONTAINER_OFFSET_Y);
+                        GameTooltip:AddLine("Appear/Summon");
+                        GameTooltip:AddLine("Left click to appear.");
+                        GameTooltip:AddLine("Right click to summon.");
+                        GameTooltip:Show();
+                    </OnEnter>
+                    <OnLeave>
+                        GameTooltip:Hide();
+                    </OnLeave>
+                </Scripts>
+            </Button>
+        </Frames>
+    </Button>
+</Ui>

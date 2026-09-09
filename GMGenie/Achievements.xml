@@ -1,0 +1,120 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/ http://wowprogramming.com/FrameXML/UI.xsd">
+    <Button name="GMGenie_Achievements" inherits="GMGenie_Window" hidden="true">
+        <Size><AbsDimension x="430" y="345"/></Size>
+        <Anchors><Anchor point="CENTER"/></Anchors>
+        <Scripts>
+            <OnLoad>GMGenie.Achievements.onLoad(self);</OnLoad>
+            <OnShow>GMGenie.Achievements.updateTargetName();</OnShow>
+        </Scripts>
+        <Layers>
+            <Layer>
+                <FontString name="$parent_Intro" inherits="GenieFontNormalSmall"
+                    text="Starborn uses the selected player. Custom achievements use Character ID."
+                    justifyH="CENTER">
+                    <Size><AbsDimension x="398" y="28"/></Size>
+                    <Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-25"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parent_TargetName" inherits="GenieFontNormalSmall" text="Current target: none" justifyH="CENTER">
+                    <Size><AbsDimension x="398" y="16"/></Size>
+                    <Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-53"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parent_CharacterIdLabel" inherits="GenieFontNormalSmall" text="Character ID:">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="16" y="-82"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parent_CustomHeader" inherits="GenieFontHighlightSmall" text="SPELL HIT CREDIT ACHIEVEMENTS" justifyH="CENTER">
+                    <Size><AbsDimension x="398" y="16"/></Size>
+                    <Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-137"/></Offset></Anchor></Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <EditBox name="$parent_CharacterId" inherits="GMGenie_Input_Text" letters="12" numeric="true">
+                <Size><AbsDimension x="210" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="110" y="-77"/></Offset></Anchor></Anchors>
+                <Scripts><OnEnterPressed>self:ClearFocus();</OnEnterPressed></Scripts>
+            </EditBox>
+            <Button name="$parent_TargetId" inherits="GMGenie_Button" text="Target ID">
+                <Size><AbsDimension x="90" y="20"/></Size>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="GMGenie_Achievements_CharacterId" relativePoint="RIGHT">
+                        <Offset><AbsDimension x="4" y="0"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnClick>GMGenie.Achievements.getTargetCharacterId(false);</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_Starborn" inherits="GMGenie_Button" text="Give Starborn (20012)">
+                <Size><AbsDimension x="194" y="24"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="16" y="-106"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>GMGenie.Achievements.addStarborn();</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_StarbornCheck" inherits="GMGenie_Button" text="Check Starborn conditions">
+                <Size><AbsDimension x="200" y="24"/></Size>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="GMGenie_Achievements_Starborn" relativePoint="RIGHT">
+                        <Offset><AbsDimension x="4" y="0"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnClick>GMGenie.Achievements.startStarbornCheck();</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_Fashionable" inherits="GMGenie_Button" text="700020 - Fashionable">
+                <Size><AbsDimension x="398" y="22"/></Size>
+                <Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-157"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>GMGenie.Achievements.addSpellHitCredit(700020, "Fashionable");</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_ThunderGold" inherits="GMGenie_Button" text="700014 - Hear the Thunder's Call Gold">
+                <Size><AbsDimension x="398" y="22"/></Size>
+                <Anchors><Anchor point="TOP" relativeTo="GMGenie_Achievements_Fashionable" relativePoint="BOTTOM"><Offset><AbsDimension x="0" y="-3"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>GMGenie.Achievements.addSpellHitCredit(700014, "Hear the Thunder's Call Gold");</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_ThunderSilver" inherits="GMGenie_Button" text="700015 - Hear the Thunder's Call Silver">
+                <Size><AbsDimension x="398" y="22"/></Size>
+                <Anchors><Anchor point="TOP" relativeTo="GMGenie_Achievements_ThunderGold" relativePoint="BOTTOM"><Offset><AbsDimension x="0" y="-3"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>GMGenie.Achievements.addSpellHitCredit(700015, "Hear the Thunder's Call Silver");</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_ThunderBronze" inherits="GMGenie_Button" text="700016 - Hear the Thunder's Call Bronze">
+                <Size><AbsDimension x="398" y="22"/></Size>
+                <Anchors><Anchor point="TOP" relativeTo="GMGenie_Achievements_ThunderSilver" relativePoint="BOTTOM"><Offset><AbsDimension x="0" y="-3"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>GMGenie.Achievements.addSpellHitCredit(700016, "Hear the Thunder's Call Bronze");</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_Competing" inherits="GMGenie_Button" text="700017 - Competing for fun">
+                <Size><AbsDimension x="398" y="22"/></Size>
+                <Anchors><Anchor point="TOP" relativeTo="GMGenie_Achievements_ThunderBronze" relativePoint="BOTTOM"><Offset><AbsDimension x="0" y="-3"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>GMGenie.Achievements.addSpellHitCredit(700017, "Competing for fun");</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_Money" inherits="GMGenie_Button" text="700018 - Money money money">
+                <Size><AbsDimension x="398" y="22"/></Size>
+                <Anchors><Anchor point="TOP" relativeTo="GMGenie_Achievements_Competing" relativePoint="BOTTOM"><Offset><AbsDimension x="0" y="-3"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>GMGenie.Achievements.addSpellHitCredit(700018, "Money money money");</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_Platinum" inherits="GMGenie_Button" text="700019 - A Heart of Platinum">
+                <Size><AbsDimension x="398" y="22"/></Size>
+                <Anchors><Anchor point="TOP" relativeTo="GMGenie_Achievements_Money" relativePoint="BOTTOM"><Offset><AbsDimension x="0" y="-3"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>GMGenie.Achievements.addSpellHitCredit(700019, "A Heart of Platinum");</OnClick></Scripts>
+            </Button>
+        </Frames>
+    </Button>
+
+    <Button name="GMGenie_StarbornCheck" inherits="GMGenie_Window" hidden="true">
+        <Size><AbsDimension x="430" y="350"/></Size>
+        <Anchors><Anchor point="CENTER"/></Anchors>
+        <Scripts>
+            <OnLoad>GMGenie.Achievements.onStarbornCheckLoad(self);</OnLoad>
+            <OnHide>GMGenie.Achievements.cancelStarbornCheck();</OnHide>
+        </Scripts>
+        <Frames>
+            <ScrollingMessageFrame name="$parent_Output" enableMouse="true" enableMouseWheel="true">
+                <Size><AbsDimension x="404" y="300"/></Size>
+                <Anchors>
+                    <Anchor point="TOP"><Offset><AbsDimension x="0" y="-25"/></Offset></Anchor>
+                </Anchors>
+            </ScrollingMessageFrame>
+            <Button name="$parent_Clear" inherits="GMGenie_Button" text="Clear">
+                <Size><AbsDimension x="70" y="20"/></Size>
+                <Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-8" y="7"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>GMGenie.Achievements.clearStarbornCheck();</OnClick></Scripts>
+            </Button>
+        </Frames>
+    </Button>
+</Ui>

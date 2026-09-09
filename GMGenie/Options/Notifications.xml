@@ -1,0 +1,47 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/ http://wowprogramming.com/FrameXML/UI.xsd">
+    <Frame name="GMGenie_Notifications_OptionsWindow" hidden="true" parent="UIParent" inherits="GMGenie_OptionsWindowTemplate">
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parent_TicketSoundLabel" inherits="GameFontNormal" text="New ticket sound">
+                    <Anchors><Anchor point="TOPLEFT" relativeTo="$parent_SubText" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="0" y="-18"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parent_ComplaintSoundLabel" inherits="GameFontNormal" text="New complaint sound">
+                    <Anchors><Anchor point="TOPLEFT" relativeTo="$parent_SubText" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="0" y="-118"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parent_BackgroundInfo" inherits="GenieFontNormalSmall" text="Tip: enable Sound in Background in WoW sound settings if you want to hear alerts while the game is minimized." nonspacewrap="true" justifyH="LEFT">
+                    <Size><AbsDimension x="420" y="36"/></Size>
+                    <Anchors><Anchor point="TOPLEFT" relativeTo="$parent_ComplaintFlash" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="2" y="-22"/></Offset></Anchor></Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Frame name="$parent_TicketSound" inherits="UIDropDownMenuTemplate">
+                <Anchors><Anchor point="TOPLEFT" relativeTo="$parent_TicketSoundLabel" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="-16" y="-2"/></Offset></Anchor></Anchors>
+            </Frame>
+            <Button name="$parent_TicketPreview" inherits="GMGenie_Button" text="Preview">
+                <Size><AbsDimension x="65" y="22"/></Size>
+                <Anchors><Anchor point="LEFT" relativeTo="$parent_TicketSound" relativePoint="RIGHT"><Offset><AbsDimension x="-5" y="2"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>GMGenie.Notifications.preview("ticket");</OnClick></Scripts>
+            </Button>
+            <CheckButton name="$parent_TicketFlash" inherits="GMGenie_CheckButton">
+                <Anchors><Anchor point="TOPLEFT" relativeTo="$parent_TicketSound" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="17" y="-6"/></Offset></Anchor></Anchors>
+                <Scripts><OnLoad>getglobal(self:GetName().."Text"):SetText("Flash Tickets button until the new ticket is opened");</OnLoad></Scripts>
+            </CheckButton>
+
+            <Frame name="$parent_ComplaintSound" inherits="UIDropDownMenuTemplate">
+                <Anchors><Anchor point="TOPLEFT" relativeTo="$parent_ComplaintSoundLabel" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="-16" y="-2"/></Offset></Anchor></Anchors>
+            </Frame>
+            <Button name="$parent_ComplaintPreview" inherits="GMGenie_Button" text="Preview">
+                <Size><AbsDimension x="65" y="22"/></Size>
+                <Anchors><Anchor point="LEFT" relativeTo="$parent_ComplaintSound" relativePoint="RIGHT"><Offset><AbsDimension x="-5" y="2"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>GMGenie.Notifications.preview("complaint");</OnClick></Scripts>
+            </Button>
+            <CheckButton name="$parent_ComplaintFlash" inherits="GMGenie_CheckButton">
+                <Anchors><Anchor point="TOPLEFT" relativeTo="$parent_ComplaintSound" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="17" y="-6"/></Offset></Anchor></Anchors>
+                <Scripts><OnLoad>getglobal(self:GetName().."Text"):SetText("Flash Complaints button until the new complaint is opened");</OnLoad></Scripts>
+            </CheckButton>
+        </Frames>
+    </Frame>
+</Ui>

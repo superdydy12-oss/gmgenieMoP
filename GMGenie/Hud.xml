@@ -1,0 +1,316 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+ http://wowprogramming.com/FrameXML/UI.xsd">
+    <Font name="GMGenie_Hud_Font" inherits="GameFontNormalSmall" virtual="true">
+        <Color r="0.88" g="0.94" b="1" a="1"/>
+    </Font>
+    <Font name="GMGenie_Hud_FontHighlight" inherits="GameFontNormalSmall" virtual="true">
+        <Color r="0.35" g="0.9" b="1" a="1"/>
+    </Font>
+
+    <Button name="GMGenie_Hud_ActionButton" inherits="GMGenie_Button" virtual="true" frameStrata="DIALOG" frameLevel="2">
+        <Size>
+            <AbsDimension x="130" y="20"/>
+        </Size>
+    </Button>
+    <Button name="GMGenie_Hud_SmallButton" inherits="GMGenie_Hud_ActionButton" virtual="true">
+        <Size>
+            <AbsDimension x="40" y="18"/>
+        </Size>
+    </Button>
+    <Button name="GMGenie_Hud_StatusButton" inherits="SecureActionButtonTemplate" virtual="true"
+            frameStrata="DIALOG" frameLevel="2">
+        <Size>
+            <AbsDimension x="130" y="20"/>
+        </Size>
+        <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background"
+                  edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+            <EdgeSize>
+                <AbsValue val="9"/>
+            </EdgeSize>
+            <TileSize>
+                <AbsValue val="8"/>
+            </TileSize>
+            <BackgroundInsets>
+                <AbsInset left="2" right="2" top="2" bottom="2"/>
+            </BackgroundInsets>
+            <Color r="0.025" g="0.055" b="0.085" a="0.98"/>
+            <BorderColor r="0.12" g="0.48" b="0.58" a="1"/>
+        </Backdrop>
+        <Attributes>
+            <Attribute name="type" type="string" value="macro"/>
+            <Attribute name="macrotext1" type="string" value=""/>
+        </Attributes>
+        <ButtonText name="$parentText">
+            <Anchors>
+                <Anchor point="CENTER"/>
+            </Anchors>
+        </ButtonText>
+        <NormalFont style="GMGenie_Hud_Font"/>
+        <HighlightFont style="GMGenie_Hud_FontHighlight"/>
+        <DisabledFont style="GenieFontDisabledSmall"/>
+        <HighlightTexture file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD"/>
+    </Button>
+
+    <Button name="GMGenie_Hud" inherits="GMGenie_Window" hidden="false">
+        <Size>
+            <AbsDimension x="156" y="381"/>
+        </Size>
+        <Anchors>
+            <Anchor point="TOPRIGHT" relativeTo="MinimapCluster" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+        <Scripts>
+            <OnLoad>
+                GMGenie.loadWindow(self, 'GM Genie', true, function() GMGenie.Hud.checkStatus(); end);
+            </OnLoad>
+            <OnDoubleClick>
+                self:ClearAllPoints();
+                self:SetPoint("TOPRIGHT", MinimapCluster, "BOTTOMRIGHT");
+            </OnDoubleClick>
+        </Scripts>
+        <Frames>
+            <Button name="$parent_VisibilityON" inherits="GMGenie_Hud_SmallButton" text="Vis">
+                <Size><AbsDimension x="38" y="18"/></Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset><AbsDimension x="13" y="-23"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        GMGenie.Hud.setVisibilityMode("visible");
+                        SendChatMessage(".gm vis on", "GUILD");
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <Button name="$parent_VisibilityOFF" inherits="GMGenie_Hud_SmallButton" text="Invis">
+                <Size><AbsDimension x="46" y="18"/></Size>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="GMGenie_Hud_VisibilityON" relativePoint="RIGHT">
+                        <Offset><AbsDimension x="4" y="0"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        GMGenie.Hud.setVisibilityMode("invisible");
+                        SendChatMessage(".gm vis off", "GUILD");
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <Button name="$parent_VisibilityGM" inherits="GMGenie_Hud_SmallButton" text="GM">
+                <Size><AbsDimension x="38" y="18"/></Size>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="GMGenie_Hud_VisibilityOFF" relativePoint="RIGHT">
+                        <Offset><AbsDimension x="4" y="0"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        GMGenie.Hud.setVisibilityMode("gm");
+                        SendChatMessage(".gm vis gm", "GUILD");
+                    </OnClick>
+                </Scripts>
+            </Button>
+
+            <Button name="$parent_GM" inherits="GMGenie_Hud_StatusButton" text="GM mode  OFF">
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="GMGenie_Hud_VisibilityOFF" relativePoint="BOTTOM">
+                        <Offset><AbsDimension x="0" y="-7"/></Offset>
+                    </Anchor>
+                </Anchors>
+            </Button>
+            <Button name="$parent_Chat" inherits="GMGenie_Hud_StatusButton" text="Chat badge  OFF">
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="GMGenie_Hud_GM" relativePoint="BOTTOM">
+                        <Offset><AbsDimension x="0" y="-3"/></Offset>
+                    </Anchor>
+                </Anchors>
+            </Button>
+            <Button name="$parent_Whisper" inherits="GMGenie_Hud_StatusButton" text="Whispers  OFF">
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="GMGenie_Hud_Chat" relativePoint="BOTTOM">
+                        <Offset><AbsDimension x="0" y="-3"/></Offset>
+                    </Anchor>
+                </Anchors>
+            </Button>
+            <Button name="$parent_Fly" inherits="GMGenie_Hud_StatusButton" text="Flight mode  OFF">
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="GMGenie_Hud_Whisper" relativePoint="BOTTOM">
+                        <Offset><AbsDimension x="0" y="-3"/></Offset>
+                    </Anchor>
+                </Anchors>
+            </Button>
+
+            <Frame name="$parent_SpeedSection">
+                <Size><AbsDimension x="130" y="20"/></Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="GMGenie_Hud_Fly" relativePoint="BOTTOM">
+                        <Offset><AbsDimension x="0" y="-7"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Label" inherits="GMGenie_Hud_Font" text="SPEED">
+                            <Anchors><Anchor point="LEFT"/></Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <EditBox name="GMGenie_Hud_Speed" inherits="GMGenie_Input_Text" letters="5">
+                        <Size><AbsDimension x="50" y="19"/></Size>
+                        <Anchors><Anchor point="RIGHT"/></Anchors>
+                        <Scripts>
+                            <OnEnterPressed>GMGenie.Hud.setSpeed();</OnEnterPressed>
+                        </Scripts>
+                    </EditBox>
+                </Frames>
+            </Frame>
+            <Button name="$parent_Speed1" inherits="GMGenie_Hud_SmallButton" text="1">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="GMGenie_Hud_SpeedSection" relativePoint="BOTTOMLEFT">
+                        <Offset><AbsDimension x="0" y="-3"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnClick>GMGenie.Hud.setPresetSpeed(1);</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_Speed10" inherits="GMGenie_Hud_SmallButton" text="10">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="GMGenie_Hud_Speed1" relativePoint="RIGHT">
+                        <Offset><AbsDimension x="5" y="0"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnClick>GMGenie.Hud.setPresetSpeed(10);</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_Speed50" inherits="GMGenie_Hud_SmallButton" text="50">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="GMGenie_Hud_Speed10" relativePoint="RIGHT">
+                        <Offset><AbsDimension x="5" y="0"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnClick>GMGenie.Hud.setPresetSpeed(50);</OnClick></Scripts>
+            </Button>
+
+            <Button name="$parent_Tickets" inherits="GMGenie_Hud_ActionButton" text="Tickets">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="GMGenie_Hud_Speed1" relativePoint="BOTTOMLEFT">
+                        <Offset><AbsDimension x="0" y="-9"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnClick>GMGenie.Tickets.toggle();</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_Complaints" inherits="GMGenie_Hud_ActionButton" text="Complaints">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="GMGenie_Hud_Tickets" relativePoint="BOTTOMLEFT">
+                        <Offset><AbsDimension x="0" y="-3"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnClick>cShowComplaintSystem();</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_Achievements" inherits="GMGenie_Hud_ActionButton" text="Achievements">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="GMGenie_Hud_Complaints" relativePoint="BOTTOMLEFT">
+                        <Offset><AbsDimension x="0" y="-3"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnClick>GMGenie.Achievements.toggle();</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_Archive" inherits="GMGenie_Hud_ActionButton" text="Archive">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="GMGenie_Hud_Achievements" relativePoint="BOTTOMLEFT">
+                        <Offset><AbsDimension x="0" y="-3"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnClick>GMGenie.Archive.toggle();</OnClick></Scripts>
+            </Button>
+
+            <Frame name="$parent_LookupHeader">
+                <Size><AbsDimension x="130" y="14"/></Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="GMGenie_Hud_Archive" relativePoint="BOTTOM">
+                        <Offset><AbsDimension x="0" y="-6"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Text" inherits="GMGenie_Hud_Font" text="LOOKUP">
+                            <Anchors><Anchor point="CENTER"/></Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
+            <EditBox name="$parent_LookupText" inherits="GMGenie_Input_Text" letters="180">
+                <Size><AbsDimension x="130" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT" relativeTo="GMGenie_Hud_LookupHeader" relativePoint="BOTTOMLEFT"/></Anchors>
+                <Scripts><OnEnterPressed>self:ClearFocus();</OnEnterPressed></Scripts>
+            </EditBox>
+            <Button name="$parent_LookupCreature" inherits="GMGenie_Hud_ActionButton" text="Creature">
+                <Size><AbsDimension x="56" y="18"/></Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="GMGenie_Hud_LookupText" relativePoint="BOTTOMLEFT">
+                        <Offset><AbsDimension x="0" y="-3"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnClick>GMGenie.Hud.lookup("creature");</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_LookupItem" inherits="GMGenie_Hud_ActionButton" text="Item">
+                <Size><AbsDimension x="32" y="18"/></Size>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="GMGenie_Hud_LookupCreature" relativePoint="RIGHT">
+                        <Offset><AbsDimension x="2" y="0"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnClick>GMGenie.Hud.lookup("item");</OnClick></Scripts>
+            </Button>
+            <Button name="$parent_LookupQuest" inherits="GMGenie_Hud_ActionButton" text="Quest">
+                <Size><AbsDimension x="38" y="18"/></Size>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="GMGenie_Hud_LookupItem" relativePoint="RIGHT">
+                        <Offset><AbsDimension x="2" y="0"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnClick>GMGenie.Hud.lookup("quest");</OnClick></Scripts>
+            </Button>
+
+            <Button name="$parent_Abuse" inherits="GMGenie_Dropdown" text="Abuse">
+                <Size><AbsDimension x="130" y="20"/></Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="GMGenie_Hud_LookupCreature" relativePoint="BOTTOMLEFT">
+                        <Offset><AbsDimension x="0" y="-9"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>ToggleDropDownMenu(1, nil, GMGenie_Hud_DropdownbuttonsTwo, GMGenie_Hud_Abuse, 0, 0);</OnClick>
+                </Scripts>
+            </Button>
+            <Frame name="$parent_DropdownbuttonsTwo" inherits="UIDropDownMenuTemplate" id="50"/>
+        </Frames>
+    </Button>
+
+    <Button name="GMGenie_LookupResults" inherits="GMGenie_Window" hidden="true">
+        <Size><AbsDimension x="430" y="260"/></Size>
+        <Anchors><Anchor point="CENTER"/></Anchors>
+        <Scripts>
+            <OnLoad>GMGenie.Lookup.onLoad(self);</OnLoad>
+        </Scripts>
+        <Frames>
+            <ScrollingMessageFrame name="$parent_Output" enableMouse="true" enableMouseWheel="true">
+                <Size><AbsDimension x="404" y="210"/></Size>
+                <Anchors>
+                    <Anchor point="TOP" relativePoint="TOP">
+                        <Offset><AbsDimension x="0" y="-25"/></Offset>
+                    </Anchor>
+                </Anchors>
+            </ScrollingMessageFrame>
+            <Button name="$parent_Clear" inherits="GMGenie_Button" text="Clear">
+                <Size><AbsDimension x="70" y="20"/></Size>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT">
+                        <Offset><AbsDimension x="-8" y="7"/></Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnClick>GMGenie.Lookup.clear();</OnClick></Scripts>
+            </Button>
+        </Frames>
+    </Button>
+</Ui>
